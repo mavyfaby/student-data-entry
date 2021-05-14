@@ -21,9 +21,6 @@ public class MavyTextAreaHandler {
     // Separator
     private static final String SEPARATOR = "==============================\n";
 
-    // Total fields
-    private static final int FIELDS = 6;
-
     // DATA
     private static final List<HashMap<String, String>> STUDENT_INFORMATION = new ArrayList<>();
 
@@ -76,7 +73,7 @@ public class MavyTextAreaHandler {
             // Add length to the array to track the separator line number
             textLengths.add(textLength);
 
-            if (POS <  textLength) {
+            if (POS < textLength) {
                 final String SEP = SEPARATOR.substring(0, SEPARATOR.length() - 1);
 
                 if (line.equals(SEP)) {
@@ -144,32 +141,6 @@ public class MavyTextAreaHandler {
         output.put("total", STUDENT_INFORMATION.size());
 
         return output;
-    }
-
-    
-    /**
-     * Extract input from student data
-     * 
-     * @param line
-     * @return HashMap<String, String>
-     */
-    public HashMap<String, String> extractStudentData(String line) {
-        HashMap<String, String> output = new HashMap<String, String>();
-        
-        final String[] fields = line.split("~");
-        
-        if (fields.length == FIELDS) {
-            output.put("id", fields[0]);
-            output.put("age", fields[1]);
-            output.put("firstName", fields[2]);
-            output.put("lastName", fields[3]);
-            output.put("MI", fields[4]);
-            output.put("course", fields[5]);
-            
-            return output;
-        }
-        
-        return null;
     }
     
     /**
