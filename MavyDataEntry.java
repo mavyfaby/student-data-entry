@@ -527,7 +527,7 @@ public class MavyDataEntry {
                                     new MavyDialog("Update Error", "Student ID already " + strToAppend, "Okay", MavyDialog.MESSAGE_TYPE);
                                 }
 
-                                // Age is not a number
+                                // If the data updated has no changes, show dialog
                                 else if (result == MavyTextAreaHandler.EQUAL) {
                                     new MavyDialog("Update Error", "No changes", "Okay", MavyDialog.MESSAGE_TYPE);
                                 }
