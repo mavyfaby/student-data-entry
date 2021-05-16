@@ -7,7 +7,7 @@ A student information management built with Java Swing
 
 ## Screenshot
 
-![Screenshot-1](screenshots/Screenshot-1.jpeg)
+![Screenshot-1](screenshots/Screenshot.jpeg)
 
 ## LICENSE
 

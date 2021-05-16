@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class MavyTextAreaHandler {
     // Separator
-    private static final String SEPARATOR = "==============================\n";
+    private static final String SEPARATOR = "===================================\n";
 
     // DATA
     private static final List<HashMap<String, String>> STUDENT_INFORMATION = new ArrayList<>();
@@ -52,8 +52,10 @@ public class MavyTextAreaHandler {
         final String TEXT = this.textArea.getText();
         final String[] LINES = TEXT.split("\n");
         final int POS = this.textArea.getCaretPosition();
+        final String SEP = SEPARATOR.substring(0, SEPARATOR.length() - 1);
+        final HashMap<String, Object> output = new HashMap<>();
+        final List<int[]> SEP_POSITIONS = new ArrayList<>();
 
-        HashMap<String, Object> output = new HashMap<>();
         HashMap<String, String> studentData = null;
 
         int endPos = 0;
@@ -62,8 +64,8 @@ public class MavyTextAreaHandler {
         int textLength = 0;
 
         final List<Integer> textLengths = new ArrayList<>();
-
         
+        // Iterate to all lines
         for (int i = 0; i < LINES.length; i++) {
             final String line = LINES[i];
 
@@ -73,9 +75,8 @@ public class MavyTextAreaHandler {
             // Add length to the array to track the separator line number
             textLengths.add(textLength);
 
+            // If the caret position is less than the total characters of the previous lines
             if (POS < textLength) {
-                final String SEP = SEPARATOR.substring(0, SEPARATOR.length() - 1);
-
                 if (line.equals(SEP)) {
                     break;
                 }
@@ -107,19 +108,46 @@ public class MavyTextAreaHandler {
             }
         }
 
+        // Clear the textLengths
+        textLength = 0;
+        textLengths.clear();
+
+        // Get the spearator indeces
+        for (int i = 0; i < LINES.length; i++) {
+            final String line = LINES[i];
+
+            // Add length every line
+            textLengths.add(textLength += line.length() + 1);
+
+            if (LINES[i].equals(SEP)) {
+                // Get the previous total lines length
+                // Check if previous line is null,
+                // If it's greater than or equal to 0
+                // Return the previous total lines length
+                // Otherwise, return 0
+                final int prev = i - 1 >= 0 ? textLengths.get(i - 1) : 0;
+                // Get the current total lines length
+                final int current = textLengths.get(i);
+
+                // Create new int and push it to SEP_POSITIONS
+                SEP_POSITIONS.add(new int[] { prev, current });
+            }
+        }
+
+        // If student data from text area is greater than 0
         if (STUDENT_INFORMATION.size() > 0) {
             // Get the text from text area starting from index 0 to POS
             final String LEFT_STRING = TEXT.substring(0, POS);
+            // Left string lines
+            final String[] LEFT_LINES = LEFT_STRING.split("\n");
             // Separator occurences
             int occurences = 0;
-            int lastIndex = 0;
 
-            while (lastIndex != -1) {
-                lastIndex = LEFT_STRING.indexOf(SEPARATOR, lastIndex);
-
-                if (lastIndex != -1) {
+            // Check every previous line if it's thhe separator
+            for (String prevLine : LEFT_LINES) {
+                // If it's separator, increment the occurences
+                if (prevLine.equals(SEP)) {
                     occurences++;
-                    lastIndex += SEPARATOR.length();
                 }
             }
 
@@ -138,6 +166,7 @@ public class MavyTextAreaHandler {
         output.put("endPos", endPos);
         output.put("studentData", studentData);
         output.put("index", index);
+        output.put("sepPos", SEP_POSITIONS);
         output.put("total", STUDENT_INFORMATION.size());
 
         return output;

@@ -15,6 +15,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -239,11 +241,11 @@ public class MavyDataEntry {
         
         // South components
 
-        MavyButton addButton = new MavyButton("Add", MavyDataEntryProps.GREEN_COLOR);
-        MavyButton updateButton = new MavyButton("Update", MavyDataEntryProps.BLUE_COLOR);
-        MavyButton saveButton = new MavyButton("Save", MavyDataEntryProps.GREEN_COLOR);
-        MavyButton deleteButton = new MavyButton("Delete", MavyDataEntryProps.RED_COLOR);
-        MavyButton exitButton = new MavyButton("Exit", MavyDataEntryProps.RED_COLOR);
+        MavyButton addButton = new MavyButton("Add", MavyDataEntryProps.LIGHTGREEN_COLOR);
+        MavyButton updateButton = new MavyButton("Update", MavyDataEntryProps.LIGHTBLUE_COLOR);
+        MavyButton saveButton = new MavyButton("Save", MavyDataEntryProps.LIGHTGREEN_COLOR);
+        MavyButton deleteButton = new MavyButton("Delete", MavyDataEntryProps.LIGHTRED_COLOR);
+        MavyButton exitButton = new MavyButton("Exit", MavyDataEntryProps.LIGHTRED_COLOR);
 
         // ==================== STYLES ==================== //
 
@@ -269,13 +271,42 @@ public class MavyDataEntry {
                 
                     final int startPos = (int)highlightedData.get("startPos");
                     final int endPos = (int)highlightedData.get("endPos");
+                    final int index = (int)highlightedData.get("index");
                     final HashMap<String, String> studentData = (HashMap<String, String>)highlightedData.get("studentData");
+
+                    // Two dimensional array
+                    final List<int[]> sepPos = (List<int[]>)highlightedData.get("sepPos");
+
+                    Color highlightColor = MavyDataEntryProps.HIGHLIGHT_COLOR;
+
+                    switch (index % 4) {
+                        case 0:
+                            highlightColor = MavyDataEntryProps.RED_COLOR;
+                            break;
+                        case 1:
+                            highlightColor = MavyDataEntryProps.YELLOW_COLOR;
+                            break;
+                        case 2:
+                            highlightColor = MavyDataEntryProps.GREEN_COLOR;
+                            break;
+                        case 3:
+                            highlightColor = MavyDataEntryProps.BLUE_COLOR;
+                            break;
+                    }
     
-                    final DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(MavyDataEntryProps.HIGHLIGHT_COLOR);
+                    final DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(highlightColor);
                     final DefaultHighlighter highlighter = (DefaultHighlighter)textArea.getHighlighter();
 
                     highlighter.removeAllHighlights();
+
+                    // Add highlight to selected student data
                     highlighter.addHighlight(startPos, endPos, painter);
+
+                    // Loop through the separator positions in the the text area
+                    for (int[] pos : sepPos) {
+                        // Add highlight to the separators
+                        highlighter.addHighlight(pos[0], pos[1], new DefaultHighlighter.DefaultHighlightPainter(MavyDataEntryProps.DISABLED_COLOR));
+                    }
 
                     /**
                      * Set Update and Delete button
@@ -311,12 +342,12 @@ public class MavyDataEntry {
 
         // Right Panel
 
-        fieldID.setForeground(MavyDataEntryProps.RED_COLOR);
-        fieldAge.setForeground(MavyDataEntryProps.RED_COLOR);
-        fieldFirstname.setForeground(MavyDataEntryProps.YELLOW_COLOR);
-        fieldLastname.setForeground(MavyDataEntryProps.YELLOW_COLOR);
-        fieldMI.setForeground(MavyDataEntryProps.GREEN_COLOR);
-        fieldCourse.setForeground(MavyDataEntryProps.GREEN_COLOR);
+        fieldID.setForeground(MavyDataEntryProps.LIGHTRED_COLOR);
+        fieldAge.setForeground(MavyDataEntryProps.LIGHTRED_COLOR);
+        fieldFirstname.setForeground(MavyDataEntryProps.LIGHTYELLOW_COLOR);
+        fieldLastname.setForeground(MavyDataEntryProps.LIGHTYELLOW_COLOR);
+        fieldMI.setForeground(MavyDataEntryProps.LIGHTGREEN_COLOR);
+        fieldCourse.setForeground(MavyDataEntryProps.LIGHTGREEN_COLOR);
 
         // Disable buttons except add and exit button on start up
         updateButton.setCustomEnabled(false);
@@ -346,12 +377,12 @@ public class MavyDataEntry {
 
                 title.setForeground(MavyDataEntryProps.WHITE_COLOR);
 
-                labelID.setForeground(MavyDataEntryProps.RED_COLOR);
-                labelAge.setForeground(MavyDataEntryProps.RED_COLOR);
-                labelFirstname.setForeground(MavyDataEntryProps.YELLOW_COLOR);
-                labelLastname.setForeground(MavyDataEntryProps.YELLOW_COLOR);
-                labelMI.setForeground(MavyDataEntryProps.GREEN_COLOR);
-                labelCourse.setForeground(MavyDataEntryProps.GREEN_COLOR);
+                labelID.setForeground(MavyDataEntryProps.LIGHTRED_COLOR);
+                labelAge.setForeground(MavyDataEntryProps.LIGHTRED_COLOR);
+                labelFirstname.setForeground(MavyDataEntryProps.LIGHTYELLOW_COLOR);
+                labelLastname.setForeground(MavyDataEntryProps.LIGHTYELLOW_COLOR);
+                labelMI.setForeground(MavyDataEntryProps.LIGHTGREEN_COLOR);
+                labelCourse.setForeground(MavyDataEntryProps.LIGHTGREEN_COLOR);
 
                 // Self sacrifice
                 addButton.setCustomEnabled(false);

@@ -25,13 +25,19 @@ public class MavyDataEntryProps {
     public static final Color FORE_COLOR = new Color(0xFF8A98B6);
     public static final Color DISABLED_COLOR = new Color(0xFF3C414E);
 
-    public static final Color RED_COLOR = new Color(0xFFF08070);
-    public static final Color YELLOW_COLOR = new Color(0xFFFBC02D);
-    public static final Color GREEN_COLOR = new Color(0xFF5EC479);
-    public static final Color BLUE_COLOR = new Color(0xFF3B8EEA);
+    public static final Color LIGHTRED_COLOR = new Color(0xFFF08070);
+    public static final Color LIGHTYELLOW_COLOR = new Color(0xFFFBC02D);
+    public static final Color LIGHTGREEN_COLOR = new Color(0xFF5EC479);
+    public static final Color LIGHTBLUE_COLOR = new Color(0xFF3B8EEA);
+
+    public static final Color RED_COLOR = new Color(0xFFDB4437);
+    public static final Color YELLOW_COLOR = new Color(0xFFF4B400);
+    public static final Color GREEN_COLOR = new Color(0xFF0F9D58);
+    public static final Color BLUE_COLOR = new Color(0xFF4285F4);
+
     public static final Color WHITE_COLOR = new Color(255, 255, 255, 225);
 
-    public static final Color HIGHLIGHT_COLOR = new Color(0xFF7A42F4);
+    public static final Color HIGHLIGHT_COLOR = new Color(0xFF9d0f79);
     
     public static final Border PADDING = BorderFactory.createEmptyBorder(16, 16, 16, 16);
 
