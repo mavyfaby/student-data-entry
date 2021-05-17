@@ -60,8 +60,8 @@ public class MavyDataEntryProps {
     public static boolean isBlank(String ...fields) {
         // Iterate through arguments
         for (String field : fields) {
-            // Check if an argument string is empty
-            if (field.length() == 0) {
+            // Check if an argument string is blank
+            if (field.isBlank()) {
                 return true;
             }
         }
