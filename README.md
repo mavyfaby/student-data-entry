@@ -1,13 +1,17 @@
 # Student Information Data Management
 
-A student information management built with Java Swing
+A student information management system built with Java Swing
 
 ## Author
 * [Maverick Fabroa](https://facebook.com/mavyfaby)
 
+## Java Version
+
+openjdk version "11.0.10" 2021-01-19
+
 ## Screenshot
 
-![Screenshot-1](screenshots/Screenshot.jpeg)
+![Screenshot-1](screenshots/screenshot.jpeg)
 
 ## LICENSE
 
