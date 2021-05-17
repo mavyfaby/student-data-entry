@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
@@ -204,14 +205,18 @@ public class MavyDataEntry {
         MavyPanel leftPanel = new MavyPanel(new BorderLayout());
         MavyPanel rightPanel = new MavyPanel(new BorderLayout());
 
-        // Left panel's components 
+        // Left panel's components
+        MavyPanel leftNorthPanel = new MavyPanel(new FlowLayout(FlowLayout.LEFT));
+        MavyLabel dataLabel = new MavyLabel("Total Students:", 18);
+        MavyLabel totalStudentsLabel = new MavyLabel("0", 20);
+
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
 
         // Right panel's components
-        MavyPanel northPanel = new MavyPanel(new GridLayout(1, 1));
-        MavyPanel centerPanel = new MavyPanel(inputLayout);
-        MavyPanel southPanel = new MavyPanel(buttonLayout);
+        MavyPanel rightNorthPanel = new MavyPanel(new GridLayout(1, 1));
+        MavyPanel rightCenterPanel = new MavyPanel(inputLayout);
+        MavyPanel rightSouthPanel = new MavyPanel(buttonLayout);
 
         // North compoenent
         MavyLabel title = new MavyLabel("Student Information", 28);
@@ -252,6 +257,10 @@ public class MavyDataEntry {
         panel.setBorder(MavyDataEntryProps.PADDING);
 
         // Left Panel
+        leftNorthPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 24, 0));
+        totalStudentsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        totalStudentsLabel.setForeground(MavyDataEntryProps.LIGHTGREEN_COLOR);
 
         textArea.setBackground(MavyDataEntryProps.SURFACE_COLOR);
         textArea.setForeground(MavyDataEntryProps.WHITE_COLOR);
@@ -354,9 +363,9 @@ public class MavyDataEntry {
         deleteButton.setCustomEnabled(false);
         saveButton.setCustomEnabled(false);
 
-        northPanel.setBorder(MavyDataEntryProps.PADDING);
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 54, 16));
-        southPanel.setBorder(MavyDataEntryProps.PADDING);
+        rightNorthPanel.setBorder(MavyDataEntryProps.PADDING);
+        rightCenterPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 54, 16));
+        rightSouthPanel.setBorder(MavyDataEntryProps.PADDING);
 
         rightPanel.setBorder(MavyDataEntryProps.PADDING);
 
@@ -419,6 +428,9 @@ public class MavyDataEntry {
                 // If success, disable inputs 
                 if (result == MavyTextAreaHandler.SUCCESS) {
                     isAdding = false;
+
+                    // Get total students and set it to the label
+                    totalStudentsLabel.setText(textAreaHandler.getTotalStudents());
 
                     fieldID.setText("");
                     fieldAge.setText("");
@@ -600,14 +612,17 @@ public class MavyDataEntry {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             final int result = textAreaHandler.deleteStudentData(indexFromData);
-    
+                            
                             if (result == MavyTextAreaHandler.SUCCESS) {
                                 textArea.getHighlighter().removeAllHighlights();
+                                
+                                // Get total students and set it to the label
+                                totalStudentsLabel.setText(textAreaHandler.getTotalStudents());
 
                                 deleteButton.setCustomEnabled(false);
                                 updateButton.setCustomEnabled(false);
                             }
-                                else if (result == MavyTextAreaHandler.ERROR) {
+                                else if (result == MavyTextAreaHandler.OUT_OF_BOUNDS) {
                                     new MavyDialog("Delete error", "Please select student data from text area", "OK", MavyDialog.MESSAGE_TYPE);
                                 }
                         }
@@ -645,6 +660,10 @@ public class MavyDataEntry {
         
         // ============ ADDITION OF COMPONENTS ============ //
 
+        leftNorthPanel.add(dataLabel);
+        leftNorthPanel.add(totalStudentsLabel);
+
+        leftPanel.add(leftNorthPanel, BorderLayout.NORTH);
         leftPanel.add(scrollPane, BorderLayout.CENTER);
         
         panelID.add(labelID);
@@ -660,24 +679,24 @@ public class MavyDataEntry {
         panelCourse.add(labelCourse);
         panelCourse.add(fieldCourse);
         
-        northPanel.add(title);
+        rightNorthPanel.add(title);
 
-        centerPanel.add(panelID);
-        centerPanel.add(panelAge);
-        centerPanel.add(panelLastname);
-        centerPanel.add(panelFirstname);
-        centerPanel.add(panelMI);
-        centerPanel.add(panelCourse);
+        rightCenterPanel.add(panelID);
+        rightCenterPanel.add(panelAge);
+        rightCenterPanel.add(panelLastname);
+        rightCenterPanel.add(panelFirstname);
+        rightCenterPanel.add(panelMI);
+        rightCenterPanel.add(panelCourse);
 
-        southPanel.add(addButton);
-        southPanel.add(saveButton);
-        southPanel.add(updateButton);
-        southPanel.add(deleteButton);
-        southPanel.add(exitButton);
+        rightSouthPanel.add(addButton);
+        rightSouthPanel.add(saveButton);
+        rightSouthPanel.add(updateButton);
+        rightSouthPanel.add(deleteButton);
+        rightSouthPanel.add(exitButton);
 
-        rightPanel.add(northPanel, BorderLayout.NORTH);
-        rightPanel.add(centerPanel, BorderLayout.CENTER);
-        rightPanel.add(southPanel, BorderLayout.SOUTH);
+        rightPanel.add(rightNorthPanel, BorderLayout.NORTH);
+        rightPanel.add(rightCenterPanel, BorderLayout.CENTER);
+        rightPanel.add(rightSouthPanel, BorderLayout.SOUTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
 

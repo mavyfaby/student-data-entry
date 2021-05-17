@@ -371,6 +371,15 @@ public class MavyTextAreaHandler {
         return false;
     }
 
+    /**
+     * Get the number of total students
+     * 
+     * @return int
+     */
+    public String getTotalStudents() {
+        return String.valueOf(STUDENT_INFORMATION.size());
+    }
+
     // =========================================================================== //
 
     /**
@@ -497,6 +506,9 @@ public class MavyTextAreaHandler {
 
             // Print student information to the text area
             printStudentInformation();
+
+            // Return SUCCESS signal
+            return SUCCESS;
         }
 
         // Otherwise, return out of bounds

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
  * ================================================
  * Date: May 14, 2021
  * ================================================
+ * Date Modified: May 17, 2021
+ * ================================================
  * Java SDK Version: 11
  * ================================================
  */
@@ -57,11 +59,11 @@ public class MavyDialog extends JDialog {
         // Buttons inside button panel
         switch (type) {
             case MavyDialog.CONFIRM_TYPE:
-                cancelButton = new MavyButton("Cancel", MavyDataEntryProps.RED_COLOR);
-                acceptButton = new MavyButton(title, MavyDataEntryProps.GREEN_COLOR);
+                cancelButton = new MavyButton("Cancel", MavyDataEntryProps.LIGHTRED_COLOR);
+                acceptButton = new MavyButton(title, MavyDataEntryProps.LIGHTGREEN_COLOR);
                 break;
             case MavyDialog.MESSAGE_TYPE:
-                acceptButton = new MavyButton(mainButtonText, MavyDataEntryProps.RED_COLOR);
+                acceptButton = new MavyButton(mainButtonText, MavyDataEntryProps.LIGHTRED_COLOR);
                 break;
         }
         
